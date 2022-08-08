@@ -27,12 +27,12 @@ public class UserDao implements BdInterface<User> {
     
     @Override
     public ArrayList<User> list() throws SQLException {
-        ArrayList<User> lista = new ArrayList<User>();
-        User us = null;
-        Connection cn = conexion.conexion.openConnection();
+        ArrayList<User> lista = new ArrayList<User>();  /* INICIAR UN ARRAY LIST (LISTA ASOCIATIVA) VACIA*/
+        User us = null; /* SETEAR UN MODELO AL VACIO PARA USARLO DESPUES*/
+        Connection cn = conexion.conexion.openConnection(); /* ABRIR LA CONEXION DE LA BASE DE DATOS */
         try{
-            PreparedStatement stm = cn.prepareStatement(sql_list);
-            ResultSet rs = stm.executeQuery();
+            PreparedStatement stm = cn.prepareStatement(sql_list); /** TRANSFORMAR LA CONSULTA STRING A TIPO PREPARED STATEMENT*/
+            ResultSet rs = stm.executeQuery(); /* EJECUTA ESE COMANDO */
             while (rs.next()) {
                 us = new User();
                 us.setUser_id(rs.getInt("user_id"));
