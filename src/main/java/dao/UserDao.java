@@ -20,7 +20,7 @@ import models.User;
 public class UserDao implements BdInterface<User> {
     
     public static final String sql_list = "select * from user where user_status = 1";
-    public static final String sql_insert = "";
+    public static final String sql_insert = "insert into user (user_username,user_password,user_role_id) values (?,?,?)";
     public static final String sql_edit = "";
     public static final String sql_save = "";
     public static final String sql_delete = "";
@@ -50,7 +50,16 @@ public class UserDao implements BdInterface<User> {
 
     @Override
     public void insert(User t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection cn = conexion.conexion.openConnection();
+        try{
+            PreparedStatement stm=cn.prepareStatement(sql_insert);
+            stm.setString(1, t.getUser_username());
+            stm.setString(2, t.getUser_password());
+            stm.setInt(3, t.getUser_role_id());
+            stm.executeUpdate();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
