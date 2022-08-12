@@ -15,9 +15,9 @@ import java.sql.SQLException;
  * @author PIERO
  */
 public class conexion {
-    private static final String db_url = "jdbc:mysql://localhost:3308/bd_system";
+    private static final String db_url = "jdbc:mysql://localhost:3306/bd_system?serverTimezone=UTC";
     private static final String db_user = "root";
-    private static final String db_password = "";
+    private static final String db_password = "monchi2301";
     private static final String db_driver = "com.mysql.cj.jdbc.Driver";
     private static Connection cn;
     
