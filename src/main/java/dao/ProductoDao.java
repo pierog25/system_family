@@ -5,6 +5,7 @@
  */
 package dao;
 
+import static dao.UserDao.sql_insert;
 import interfaces.BdInterface;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ import models.Producto;
 public class ProductoDao implements BdInterface<Producto>{
 
     public static final String sql_list = "select * from producto where item_status = 1";
-    public static final String sql_insert = "";
+    public static final String sql_insert = "insert into ( Item_name, Item_category, Item_price_buying) values (?,?.?)";
     public static final String sql_edit = "";
     public static final String sql_save = "";
     public static final String sql_delete = "";
@@ -34,11 +35,12 @@ public class ProductoDao implements BdInterface<Producto>{
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 us = new Producto();
-                us.setProducto_id(rs.getInt("Producto_id"));
-                us.setProducto_username(rs.getString("Producto_username"));
-                us.setProducto_password(rs.getString("Producto_password"));
-                us.setProducto_role_id(rs.getInt("Producto_role_id"));
-                us.setProducto_status(rs.getBoolean("Producto_status"));
+                us.setItem_id(rs.getInt("Item_id"));
+                us.setItem_name(rs.getString("Item_name"));
+                us.setItem_description(rs.getString("Item_description"));
+                us.setItem_price_buying(rs.getInt("Item_price_buying"));
+                us.setItem_price_selling(rs.getInt("Item_price_selling"));
+                us.setItem_status(rs.getBoolean("Item_status"));
                 lista.add(us);
             }
         }catch(Exception e){
@@ -49,12 +51,20 @@ public class ProductoDao implements BdInterface<Producto>{
     
     @Override
     public void insert(Producto t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            Connection cn = conexion.conexion.openConnection();
+            try {
+                PreparedStatement stm=cn.prepareStatement(sql_insert);
+                stm.setString(1, t.getItem_name());
+                stm.executeUpdate();
+        } catch (Exception e) {
+             e.printStackTrace();
+        }
     }
 
     @Override
     public void save(Producto t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+               
+                    
     }
 
     @Override

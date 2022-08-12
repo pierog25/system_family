@@ -20,9 +20,11 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class Producto {
-    private int Producto_id;
-    private String Producto_username;
-    private String Producto_password;
-    private int Producto_role_id;
-    private Boolean Producto_status;
+    private int Item_id;
+    private String Item_name;
+    private int Item_qly;
+    private String Item_description;
+    private double Item_price_buying;
+    private double Item_price_selling;
+    private Boolean Item_status;
 }
