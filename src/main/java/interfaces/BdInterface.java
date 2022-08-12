@@ -16,6 +16,6 @@ public interface BdInterface<T> {
     ArrayList<T> list() throws SQLException;
     void insert(T t) throws SQLException;
     void save(T t) throws SQLException;
-    void edit(T t) throws SQLException;
+    T listForId(int id) throws SQLException;
     void delete(T t) throws SQLException;
 }

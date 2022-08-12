@@ -5,7 +5,10 @@
  */
 package dao;
 
+import static dao.UserDao.sql_insert;
 import interfaces.BdInterface;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import models.Producto;
@@ -17,8 +20,8 @@ import models.Producto;
 public class ProductoDao implements BdInterface<Producto>{
 
     public static final String sql_list = "select * from producto where item_status = 1";
-    public static final String sql_insert = "";
-    public static final String sql_edit = "";
+    public static final String sql_insert = "insert into producto (item_id,item_name,item_img,item_description,item_qty,item_price_buying,item_price_selling,item_status) values (?,?)";
+    public static final String sql_list_for_id = "select * from producto where item_status = 1 and item_id = ?";
     public static final String sql_save = "";
     public static final String sql_delete = "";
     
@@ -38,12 +41,21 @@ public class ProductoDao implements BdInterface<Producto>{
     }
 
     @Override
-    public void edit(Producto t) throws SQLException {
+    public void delete(Producto t) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Producto t) throws SQLException {
+    public Producto listForId(int id) throws SQLException {
+        Connection cn = conexion.conexion.openConnection();
+        try{
+            PreparedStatement stm=cn.prepareStatement(sql_list_for_id);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
